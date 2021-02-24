@@ -6,18 +6,32 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+// me
+import Routes from './src/routes';
+import { NavigationContainer } from '@react-navigation/native';
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    );
-  }
-}
+const App: React.FC = () => (
+  <NavigationContainer>
+    <StatusBar />
+    <Routes />
+  </NavigationContainer>
+);
+
+export default App;
+
+  // *** Template from expo install ***
+//export default function App() {
+  // const isLoadingComplete = useCachedResources();
+  // const colorScheme = useColorScheme();
+
+  // if (!isLoadingComplete) {
+  //   return null;
+  // } else {
+  //   return (
+  //     <SafeAreaProvider>
+  //       <Navigation colorScheme={colorScheme} />
+  //       <StatusBar />
+  //     </SafeAreaProvider>
+  //   );
+  // }
+//}
