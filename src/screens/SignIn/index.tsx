@@ -4,12 +4,13 @@ import {
   View, 
   KeyboardAvoidingView, 
   Platform,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Form } from '@unform/mobile';
-import { FormHandles } from '@unform/core';
+// import { Form } from '@unform/mobile';
+// import { FormHandles } from '@unform/core';
 
 import logoImg from '../../assets/logo/logo.png';
 import Input from '../../components/Input';
@@ -25,11 +26,13 @@ import {
 } from './styles';
 
 const SignIn: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
+  // Comments because library is broken on React version 16.
+  // const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
-  const handleSignIn = useCallback((data: object) =>{
-    console.log('logou', data);
-  },[]);
+  // const handleSignIn = useCallback((data: object) =>{
+  //   console.log('logou', data);
+  // },[]);
 
   return (
     <>
@@ -49,12 +52,32 @@ const SignIn: React.FC = () => {
               <Title>Finpple.</Title>
             </View>
             
-            <Form ref={formRef} onSubmit={handleSignIn}>
-              <Input name="email" icon="mail-outline" placeholder="E-mail"/>
-              <Input name="password" icon="lock-outline" placeholder="Password"/>
+            {/* <Form ref={formRef} onSubmit={handleSignIn}> */}
+              <Input 
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                name="email" 
+                icon="mail-outline" 
+                placeholder="E-mail"
+                returnKeyType="next"
+                onSubmitEditing={() => {passwordInputRef.current?.focus();}}
+              />
+
+              <Input 
+                ref={passwordInputRef}
+                name="password" 
+                icon="lock-outline" 
+                placeholder="Password"
+                secureTextEntry
+                returnKeyType="go"
+                onSubmitEditing={() =>{console.log('should be ref of entrar')}}
+              />
             
-              <Button onPress={() => {formRef.current?.submitForm();}}>Entrar</Button>
-            </Form>
+              <Button onPress={() => {console.log('Entrar clicked')}}>Entrar</Button>
+              {/* right one */}
+              {/* <Button onPress={() => {formRef.current?.submitForm();}}>Entrar</Button> */}
+            {/* </Form> */}
 
             <ForgotPasswordButton onPress={() => {console.log('Forgot clicked')}}>
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
