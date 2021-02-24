@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { 
   View, 
   KeyboardAvoidingView, 
   Platform,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -26,6 +27,9 @@ import {
 const SignUp: React.FC = () => {
   const navigation = useNavigation();
 
+  const emailInputRef = useRef<TextInput>(null);
+  const passwordInputRef = useRef<TextInput>(null);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -42,9 +46,37 @@ const SignUp: React.FC = () => {
               <Title>Criar Conta</Title>
             </View>
 
-            <Input name="name" icon="person-outline" placeholder="Nome"/>
-            <Input name="email" icon="mail-outline" placeholder="E-mail"/>
-            <Input name="password" icon="lock-outline" placeholder="Password"/>
+            <Input 
+              autoCapitalize="words"
+              name="name" 
+              icon="person-outline" 
+              placeholder="Nome"
+              returnKeyType="next"
+              onSubmitEditing={() => {emailInputRef.current?.focus();}}
+            />
+
+            <Input 
+              ref={emailInputRef}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              name="email" 
+              icon="mail-outline"
+              placeholder="E-mail"
+              returnKeyType="next"
+              onSubmitEditing={() => {passwordInputRef.current?.focus();}}
+            />
+
+            <Input 
+              ref={passwordInputRef}
+              name="password" 
+              icon="lock-outline" 
+              placeholder="Password"
+              textContentType="newPassword"
+              returnKeyType="go"
+              onSubmitEditing={() => {console.log('reg criar clicked')}}
+              secureTextEntry
+            />
           
             <Button onPress={() => {console.log('reg criar clicked')}}>Criar</Button>
 
