@@ -7,6 +7,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import homeScreen from '../screens/homeScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import Profile from '../screens/Profile';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -41,7 +42,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Conta"
-        component={TabTwoNavigator}
+        component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
         }}
@@ -58,17 +59,17 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof MaterialIcons>['n
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const ProfileStack = createStackNavigator<ProfileParamList>();
 
-function TabOneNavigator() {
+function ProfileNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="ProfileScreen"
+        component={Profile}
+        options={{ headerShown: false }}
       />
-    </TabOneStack.Navigator>
+    </ProfileStack.Navigator>
   );
 }
 

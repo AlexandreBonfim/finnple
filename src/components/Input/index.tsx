@@ -1,4 +1,5 @@
 import React, {
+  useState,
   useEffect,
   useRef,
   useImperativeHandle,
@@ -24,6 +25,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
   //const { registeredField, defaultValue = '', fieldName, error } = useField(name);
   // const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
 
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
    useImperativeHandle(ref, () => ({
     focus() {
       inputElementRef.current?.focus();
